@@ -1,1 +1,48 @@
-package grpc_go
+package main
+
+import (
+	"golang.org/x/net/context"
+	"log"
+	"net"
+	"sync"
+
+	"google.golang.org/grpc"
+
+	pb "github.com/TakuSemba/camembert/grpc-go/helloworld"
+)
+
+const port = ":11111"
+
+type customerService struct {
+	customers []*pb
+	m         sync.Mutex
+}
+
+func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerService_ListPersonServer) error {
+	cs.m.Lock()
+	defer cs.m.Unlock()
+	for _, p := range cs.customers {
+		if err := stream.Send(p); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func (cs *customerService) AddPerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
+	cs.m.Lock()
+	defer cs.m.Unlock()
+	cs.customers = append(cs.customers, p)
+	return new(pb.ResponseType), nil
+}
+
+func main() {
+	lis, err := net.Listen("tcp", port)
+	if err != nil {
+		log.Fatalf("failed to listen: %v", err)
+	}
+	server := grpc.NewServer()
+
+	pb.RegisterCustomerServiceServer(server, new(customerService))
+	server.Serve(lis)
+}
