@@ -3,7 +3,7 @@
 // DO NOT EDIT!
 
 /*
-Package protos is a generated protocol buffer package.
+Package proto is a generated protocol buffer package.
 
 It is generated from these files:
 	helloworld.proto
@@ -12,9 +12,9 @@ It has these top-level messages:
 	HelloRequest
 	HelloReply
 */
-package main
+package proto
 
-import proto "github.com/golang/protobuf/proto"
+import proto1 "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
@@ -24,7 +24,7 @@ import (
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
-var _ = proto.Marshal
+var _ = proto1.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
@@ -32,14 +32,14 @@ var _ = math.Inf
 // is compatible with the proto package it is being compiled against.
 // A compilation error at this line likely means your copy of the
 // proto package needs to be updated.
-const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
+const _ = proto1.ProtoPackageIsVersion2 // please upgrade the proto package
 
 type HelloRequest struct {
 	Name string `protobuf:"bytes,1,opt,name=name" json:"name,omitempty"`
 }
 
 func (m *HelloRequest) Reset()                    { *m = HelloRequest{} }
-func (m *HelloRequest) String() string            { return proto.CompactTextString(m) }
+func (m *HelloRequest) String() string            { return proto1.CompactTextString(m) }
 func (*HelloRequest) ProtoMessage()               {}
 func (*HelloRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
@@ -55,7 +55,7 @@ type HelloReply struct {
 }
 
 func (m *HelloReply) Reset()                    { *m = HelloReply{} }
-func (m *HelloReply) String() string            { return proto.CompactTextString(m) }
+func (m *HelloReply) String() string            { return proto1.CompactTextString(m) }
 func (*HelloReply) ProtoMessage()               {}
 func (*HelloReply) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
 
@@ -67,8 +67,8 @@ func (m *HelloReply) GetMessage() string {
 }
 
 func init() {
-	proto.RegisterType((*HelloRequest)(nil), "Hello.HelloRequest")
-	proto.RegisterType((*HelloReply)(nil), "Hello.HelloReply")
+	proto1.RegisterType((*HelloRequest)(nil), "Hello.HelloRequest")
+	proto1.RegisterType((*HelloReply)(nil), "Hello.HelloReply")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -143,10 +143,10 @@ var _Hello_serviceDesc = grpc.ServiceDesc{
 	Metadata: "helloworld.proto",
 }
 
-func init() { proto.RegisterFile("helloworld.proto", fileDescriptor0) }
+func init() { proto1.RegisterFile("helloworld.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 168 bytes of a gzipped FileDescriptorProto
+	// 169 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xc8, 0x48, 0xcd, 0xc9,
 	0xc9, 0x2f, 0xcf, 0x2f, 0xca, 0x49, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0xf5, 0x00,
 	0x89, 0x28, 0x29, 0x71, 0xf1, 0x80, 0x19, 0x41, 0xa9, 0x85, 0xa5, 0xa9, 0xc5, 0x25, 0x42, 0x42,
@@ -154,8 +154,8 @@ var fileDescriptor0 = []byte{
 	0x1a, 0x17, 0x17, 0x54, 0x4d, 0x41, 0x4e, 0xa5, 0x90, 0x04, 0x17, 0x7b, 0x6e, 0x6a, 0x71, 0x71,
 	0x62, 0x3a, 0x4c, 0x11, 0x8c, 0x6b, 0x64, 0xcb, 0x05, 0x31, 0x54, 0xc8, 0x84, 0x8b, 0x23, 0x38,
 	0xb1, 0x12, 0xc2, 0x16, 0xd6, 0x03, 0xd3, 0x7a, 0xc8, 0xb6, 0x48, 0x09, 0xa2, 0x0a, 0x16, 0xe4,
-	0x54, 0x2a, 0x31, 0x38, 0x69, 0x73, 0x29, 0x26, 0xe7, 0xe7, 0xea, 0x95, 0x24, 0x66, 0x97, 0x16,
+	0x54, 0x2a, 0x31, 0x38, 0x69, 0x71, 0x29, 0x26, 0xe7, 0xe7, 0xea, 0x95, 0x24, 0x66, 0x97, 0x16,
 	0xa7, 0xe6, 0x26, 0x25, 0xea, 0xa5, 0x17, 0x15, 0x24, 0xeb, 0x25, 0xe6, 0xa5, 0x14, 0xe5, 0x67,
-	0x42, 0x5d, 0x5d, 0x1c, 0xc5, 0x06, 0xa1, 0x93, 0x20, 0xb4, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff,
-	0x13, 0xa3, 0x76, 0xb3, 0xd9, 0x00, 0x00, 0x00,
+	0x42, 0x5d, 0x5d, 0x1c, 0xc5, 0x0a, 0xa6, 0x93, 0xd8, 0xc0, 0x94, 0x31, 0x20, 0x00, 0x00, 0xff,
+	0xff, 0xcc, 0x6a, 0x54, 0xb8, 0xd8, 0x00, 0x00, 0x00,
 }

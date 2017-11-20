@@ -1,48 +1,42 @@
 package main
 
 import (
-	"golang.org/x/net/context"
 	"log"
 	"net"
-	"sync"
-
+	"golang.org/x/net/context"
 	"google.golang.org/grpc"
-
-	pb "github.com/TakuSemba/camembert/grpc-go/helloworld"
+	pb "github.com/TakuSemba/grpc-go/proto"
 )
 
-const port = ":11111"
+const (
+	port = ":8080"
+)
 
-type customerService struct {
-	customers []*pb
-	m         sync.Mutex
+type server struct{}
+
+func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+	return &pb.HelloReply{Message: "Hello " + in.Name}, nil
 }
 
-func (cs *customerService) ListPerson(p *pb.RequestType, stream pb.CustomerService_ListPersonServer) error {
-	cs.m.Lock()
-	defer cs.m.Unlock()
-	for _, p := range cs.customers {
-		if err := stream.Send(p); err != nil {
-			return err
-		}
-	}
-	return nil
+func (s *server) Order(ctx context.Context, in *pb.CoffeeRequest) (*pb.CoffeeResponse, error) {
+	return &pb.CoffeeResponse{
+		Price: 560,
+		Name: in.Name,
+		Message: "Thank you for orderign " + in.Name,
+	}, nil
 }
 
-func (cs *customerService) AddPerson(c context.Context, p *pb.Person) (*pb.ResponseType, error) {
-	cs.m.Lock()
-	defer cs.m.Unlock()
-	cs.customers = append(cs.customers, p)
-	return new(pb.ResponseType), nil
-}
 
 func main() {
 	lis, err := net.Listen("tcp", port)
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
-	server := grpc.NewServer()
+	s := grpc.NewServer()
+	pb.RegisterHelloServer(s, &server{})
+	pb.RegisterCoffeeServer(s, &server{})
 
-	pb.RegisterCustomerServiceServer(server, new(customerService))
-	server.Serve(lis)
+	if err := s.Serve(lis); err != nil {
+		log.Fatalf("failed to serve: %v", err)
+	}
 }
