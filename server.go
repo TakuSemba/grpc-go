@@ -22,7 +22,7 @@ func (s *server) Order(ctx context.Context, in *pb.CoffeeRequest) (*pb.CoffeeRes
 	return &pb.CoffeeResponse{
 		Price: 560,
 		Name: in.Name,
-		Message: "Thank you for orderign " + in.Name,
+		Message: "Thank you for ordering " + in.Name,
 	}, nil
 }
 
